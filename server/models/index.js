@@ -1,6 +1,6 @@
 var db = require('../db');
 var Sequelize = require('sequelize');
-var chatDB = new Sequelize('chat', 'root', 'plantlife');
+// var chatDB = new Sequelize('chat', 'root', 'plantlife');
 const mysql = require('mysql');
 
 var userIdCounter = 0;
@@ -15,7 +15,15 @@ db.connection.connect((err) => {
 
 module.exports = {
   messages: {
-    get: function () {}, // a function which produces all the messages
+    get: function (callback) {
+      var search = 'SELECT * FROM messages'; // ADD DATES AT A LATER TIME
+      db.connection.query(search, (err, results) => {
+        if (err) {
+          throw err;
+        }
+        callback(results);
+      });
+    }, // a function which produces all the messages
     post: function (messageObj) {
       console.log('did i get here?');
       messageIdCounter = messageIdCounter++;
@@ -31,7 +39,15 @@ module.exports = {
 
   users: {
     // Ditto as above.
-    get: function () {},
+    get: function (callback) {
+      var search = 'SELECT * FROM users'; // ADD DATES AT A LATER TIME
+      db.connection.query(search, (err, results) => {
+        if (err) {
+          throw err;
+        }
+        callback(results);
+      });
+    },
     post: function (usernameObj) {
       userIdCounter = userIdCounter++;
       var insert = 'INSERT INTO users (id, username) VALUES (?, ?)'; // ADD DATES AT A LATER TIME
