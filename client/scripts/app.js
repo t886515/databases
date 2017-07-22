@@ -63,9 +63,8 @@ var app = {
       type: 'GET',
       contentType: 'application/json',
       success: function(data) {
-        console.log('This is our data: ', data);
         // Don't bother if we have nothing to work with
-        if (!data.results || !data.results.length) { return; }
+        // if (!data.results || !data.results.length) { return; }
 
         // Store messages for caching later
         app.messages = data.results;
@@ -162,8 +161,25 @@ var app = {
       $username.addClass('friend');
     }
 
-    var $message = $('<br><span/>');
+    var $message = $('<br><span/><br>');
     $message.text(message.message).appendTo($chat);
+
+    var $timestamp = $('<br><span class="timestamp"/>');
+    
+    var timeSinceTweet = function(createdAt) {
+      var createdMsAgo = Date.now() - new Date(createdAt);
+      if (createdMsAgo <= 1000) {
+        return 'Just now';
+      } else if (1000 <= createdMsAgo && createdMsAgo < 60000) {
+        return '' + Math.floor(createdMsAgo / 1000) + ' seconds ago';
+      } else if (60000 <= createdMsAgo && createdMsAgo < 3600000) {
+        return '' + Math.floor(createdMsAgo / 60000) + ' minutes ago';
+      } 
+      
+    };
+    
+    
+    $timestamp.text(timeSinceTweet(message.createdAt)).appendTo($chat);
 
     // Add the message to the UI
     app.$chats.prepend($chat);

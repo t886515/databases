@@ -11,7 +11,7 @@ describe('Persistent Node Chat Server', function() {
   beforeEach(function(done) {
     dbConnection = mysql.createConnection({
       user: 'root',
-      password: 'plantlife',
+      password: '',
       database: 'chat'
     });
     dbConnection.connect();
@@ -66,8 +66,9 @@ describe('Persistent Node Chat Server', function() {
 
   it('Should output all messages from the DB', function(done) {
     // Let's insert a message into the db
-    var queryString = 'INSERT INTO messages (username, message, roomName) VALUES (?, ?, ?)';
-    var queryArgs = ['user', 'Men like you can never change!', 'main'];
+    var date = new Date();
+    var queryString = 'INSERT INTO messages (username, message, roomName, createdAt) VALUES (?, ?, ?, ?)';
+    var queryArgs = ['chatbot', 'Welcome to the chat!', 'lobby', date];
     // TODO - The exact query string and query args to use
     // here depend on the schema you design, so I'll leave
     // them up to you. */
@@ -80,8 +81,8 @@ describe('Persistent Node Chat Server', function() {
       request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
         var messageLog = JSON.parse(body).results;
         console.log('MESSAGE LOG ---------->', messageLog);
-        expect(messageLog[0].message).to.equal('Men like you can never change!');
-        expect(messageLog[0].roomName).to.equal('main');
+        expect(messageLog[0].message).to.equal('Welcome to the chat!');
+        expect(messageLog[0].roomName).to.equal('lobby');
         done();
       });
     });

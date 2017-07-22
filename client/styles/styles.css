@@ -1,6 +1,6 @@
 body {
-    background: #000;
-    color:#ddd;
+    background: rgb(99, 99, 99);
+    color:#fff;
     text-align: center;
     padding: 0 25px;
     font-family: arial, sans-serif;
@@ -10,17 +10,19 @@ body {
     width: 500px;
     margin: auto;
     text-align: left;
-    background: black;
+    background: rgb(255, 212, 147);
     padding: 50px 60px;
-    border: solid #ddd;
+    border: solid rgb(99, 99, 99);
     border-width: 0 1px 1px 1px;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 #main h1 {
     margin-top: 0;
-    font-size: 35px;
+    font-size: 55px;
     margin-bottom: 5px;
     padding: 5px;
+    color: rgb(99, 99, 99);
 }
 
 #main h1 span {
@@ -63,7 +65,7 @@ form input[type=text] {
 .chat {
     padding: 5px;
     margin-bottom: 5px;
-    background-color: #333;
+    background-color: rgb(99, 99, 99);
 }
 
 .chat .username {
@@ -136,3 +138,4 @@ form input[type=text] {
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
+
