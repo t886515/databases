@@ -7,7 +7,7 @@ module.exports = {
       var data = {};
       res.status(200);
       res.type('application/json');
-      models.messages.get( (message) => {
+      models.messages.read( (message) => {
         //console.log('RESULTS INSIDE CONTROLLER', results);
         data.results = message;
         res.send(JSON.stringify(data));
@@ -15,7 +15,7 @@ module.exports = {
     }, // a function which handles a get request for all messages
     post: function (req, res) {
       res.status(201);
-      models.messages.post(req.body);
+      models.messages.insert(req.body);
       // console.log('REQ BODY', req.body);
       res.send();
     }, // a function which handles posting a message to the database
@@ -28,12 +28,12 @@ module.exports = {
   users: {
     // Ditto as above
     get: function (req, res) {
-      models.users.get( (results) => {
+      models.users.read( (results) => {
         res.send(results);
       });
     },
     post: function (req, res) {     
-      models.users.post(req.body);
+      models.users.insert(req.body);
       res.send();
     },
     options: function(req, res) {

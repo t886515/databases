@@ -15,7 +15,7 @@ db.connection.connect((err) => {
 
 module.exports = {
   messages: {
-    get: function (callback) {
+    read: function (callback) {
       var search = 'SELECT * FROM messages'; // ADD DATES AT A LATER TIME
       db.connection.query(search, (err, results) => {
         if (err) {
@@ -24,7 +24,7 @@ module.exports = {
         callback(results);
       });
     }, // a function which produces all the messages
-    post: function (messageObj) {
+    insert: function (messageObj) {
       messageIdCounter = messageIdCounter++;
       var insert = 'INSERT INTO messages (username, message, roomName) VALUES ( ?, ?, ?)'; // ADD DATES AT A LATER TIME
       db.connection.query(insert, [messageObj.username, messageObj.message, messageObj.roomname], (err) => {
@@ -38,7 +38,7 @@ module.exports = {
 
   users: {
     // Ditto as above.
-    get: function (callback) {
+    read: function (callback) {
       var search = 'SELECT * FROM users'; // ADD DATES AT A LATER TIME
       db.connection.query(search, (err, results) => {
         if (err) {
@@ -47,7 +47,7 @@ module.exports = {
         callback(results);
       });
     },
-    post: function (usernameObj) {
+    insert: function (usernameObj) {
       userIdCounter = userIdCounter++;
       var insert = 'INSERT INTO users (username) VALUES (?)'; // ADD DATES AT A LATER TIME
       db.connection.query(insert, [usernameObj.username], (err) => {
@@ -56,7 +56,7 @@ module.exports = {
         }
       });
       // db.connection.query('SELECT * FROM messages', [], (err, results) => {
-      //   console.log(results, 'DO I GET NAYTHING HERE???');
+      //   console.log(results, 'DO I read NAYTHING HERE???');
       // });
     }
   }
@@ -90,8 +90,8 @@ module.exports = {
 
 // module.exports = {
 //   messages: {
-//     get: function () {}, // a function which produces all the messages
-//     post: function (messagesObj) {
+//     read: function () {}, // a function which produces all the messages
+//     insert: function (messagesObj) {
 //       console.log(messagesObj, '------------INSIDE MESSAGES SEQULIZE=============');
 //       Messages.sync()
 //         .then(() => {
@@ -102,8 +102,8 @@ module.exports = {
 
 //   users: {
 //     // Ditto as above.
-//     get: function () {},
-//     post: function (usernameObj) {
+//     read: function () {},
+//     insert: function (usernameObj) {
 //       console.log(' INSIDE Sequelize -------------------------------------');
 //       Users.sync()
 //         .then(() => {
