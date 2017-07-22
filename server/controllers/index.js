@@ -3,14 +3,26 @@ var models = require('../models');
 module.exports = {
   messages: {
     get: function (req, res) {
-      models.messages.get( (results) => {
-        res.send(results);
+      //console.log('content-type', res.con)
+      var data = {};
+      res.status(200);
+      res.type('application/json');
+      models.messages.get( (message) => {
+        //console.log('RESULTS INSIDE CONTROLLER', results);
+        data.results = message;
+        res.send(JSON.stringify(data));
       });
     }, // a function which handles a get request for all messages
     post: function (req, res) {
+      res.status(201);
       models.messages.post(req.body);
+      // console.log('REQ BODY', req.body);
       res.send();
-    } // a function which handles posting a message to the database
+    }, // a function which handles posting a message to the database
+    options: function(req, res) {
+      res.status(204);
+      res.send();
+    }
   },
 
   users: {
@@ -22,6 +34,10 @@ module.exports = {
     },
     post: function (req, res) {     
       models.users.post(req.body);
+      res.send();
+    },
+    options: function(req, res) {
+      res.status(204);
       res.send();
     }
   }

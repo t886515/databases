@@ -25,10 +25,9 @@ module.exports = {
       });
     }, // a function which produces all the messages
     post: function (messageObj) {
-      console.log('did i get here?');
       messageIdCounter = messageIdCounter++;
-      var insert = 'INSERT INTO messages (id, username, message, roomName) VALUES (?, ?, ?, ?)'; // ADD DATES AT A LATER TIME
-      db.connection.query(insert, [messageIdCounter, messageObj.username, messageObj.message, messageObj.roomname], (err) => {
+      var insert = 'INSERT INTO messages (username, message, roomName) VALUES ( ?, ?, ?)'; // ADD DATES AT A LATER TIME
+      db.connection.query(insert, [messageObj.username, messageObj.message, messageObj.roomname], (err) => {
         if (err) {
           throw err;
         }
@@ -50,8 +49,8 @@ module.exports = {
     },
     post: function (usernameObj) {
       userIdCounter = userIdCounter++;
-      var insert = 'INSERT INTO users (id, username) VALUES (?, ?)'; // ADD DATES AT A LATER TIME
-      db.connection.query(insert, [userIdCounter, usernameObj.username], (err) => {
+      var insert = 'INSERT INTO users (username) VALUES (?)'; // ADD DATES AT A LATER TIME
+      db.connection.query(insert, [usernameObj.username], (err) => {
         if (err) {
           throw err;
         }

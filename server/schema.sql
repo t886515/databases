@@ -5,7 +5,7 @@ USE chat;
 
 CREATE TABLE users (
   -- userId INTEGER PRIMARY KEY,
-  id INTEGER PRIMARY KEY,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   username TEXT(10),
   createdAt DATETIME,
   updatedAt DATETIME 
@@ -22,7 +22,7 @@ CREATE TABLE users (
 CREATE TABLE messages (
   /* Describe your table here.*/
   -- messageId INTEGER PRIMARY KEY,
-  id INTEGER PRIMARY KEY,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   username TEXT NOT NULL, /* Foreign key to connect message to a user*/
   message TEXT(100),
   roomName TEXT(15) NOT NULL,
